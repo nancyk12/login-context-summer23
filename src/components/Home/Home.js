@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div className={theme}>
         Home
-        <h3>{theme}</h3>
+        <span> {theme} </span>
         <button onClick={changeTheme}> Change Theme </button>
     </div>
 
