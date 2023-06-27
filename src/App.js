@@ -1,11 +1,12 @@
 import {useState} from 'react'
-import logo from './logo.svg';
 import './App.css';
 
 import { ThemeContext } from './context/ThemeContext'
-import {LoginContext, LoginDispatchContext} from './context/LoginContext'
+// import {LoginContext, LoginDispatchContext} from './context/LoginContext'
+import { LoginProvider } from './context/LoginContext'
 
 import Home from './components/Home/Home'
+import Login from './components/Login/Login'
 
 
 function App() {
@@ -16,10 +17,15 @@ function App() {
   }
   return (
     <div className="App">
+   
       <ThemeContext.Provider value={
         {theme, setTheme, changeTheme}
-        }>
-        <Home />
+      }>
+          <LoginProvider>
+              <Home />
+              <Login />
+          </LoginProvider>
+        
       </ThemeContext.Provider>
     </div>
   );
