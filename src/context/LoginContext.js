@@ -57,6 +57,18 @@ const loginReducer = (login, action) => {
                     isAuth: false,
                     ...action.payload
                 }
+            case "ERROR":
+                 // passing full error object
+            // return {
+            //     ...login,
+            //     message: action.error.response.data
+            // }
+
+            //passing just the message from the backend
+            return {
+                ...login,
+                message: action.message
+            }
         default:
             return login
     }
