@@ -1,7 +1,13 @@
 import React, { useState, useContext } from 'react'
 import {ThemeContext} from '../../context/ThemeContext'
 import {LoginContext, LoginDispatchContext} from '../../context/LoginContext'
+import { fetchLogin, registerUser } from '../../context/loginContextHelper'
+
 import './Login.css'
+
+//Make the register button work
+//Need to send username and password the backend
+// No logic in the backend right now, just return success message with username.
 
 const Login = () => {
   //consume theme context  
@@ -35,15 +41,15 @@ const Login = () => {
             <>
                 <br></br>
                 {/* Logout Button */}
-            <   button onClick={
+                <button onClick={
                     () => {
                     dispatch({type: 'LOGOUT'})
                     setInput({username: '',password: ''})
                     }
-            }
-            >
-                Logout
-            </button>
+                }
+                >
+                    Logout
+                </button>
             </>
             :
             <>
@@ -53,24 +59,22 @@ const Login = () => {
                     name='username'
                     value={input.username}
                     onChange={onChangeHandler}
-                    /><br />
-                    <label htmlFor='password'>Password: </label>
-                    <input 
+                /><br />
+                <label htmlFor='password'>Password: </label>
+                <input 
                     type='password'
                     name='password'
                     value={input.password}
                     onChange={onChangeHandler}
-                    /><br />
-                    <button>Register</button>
-                    <button onClick={ 
-                        () => dispatch({
-                        type: 'LOGIN',
-                        data: input
-                    })  
-                    }>Login</button>
+                /><br />
+                <button onClick={ () => registerUser(dispatch, input)}
+                >Register</button>
+                <button onClick={ 
+                    () => fetchLogin(dispatch, input)
+                }>Login</button>
             </>           
         }
-               
+
         </div>
   )
 }

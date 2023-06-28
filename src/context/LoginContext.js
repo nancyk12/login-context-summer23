@@ -1,15 +1,15 @@
 import {createContext, useReducer} from 'react'
 
-// if using .Provider here in this file no expor is needed
-// if you want to use .Provider insead of LoginProvider, you would need the export
-export const LoginContext = createContext(null)
+// export for consuming context
+export const LoginContext = createContext(null)  
 export const LoginDispatchContext = createContext(null)
 
 const initialState = {
     username: '',
     isAuth: false,
-    message: 'Please Login'
+    message: "Please Login!"
 }
+// export for providing context (reducer - state and dispatch)
 export const LoginProvider = ({children}) => {
     const [login, dispatch] = useReducer(loginReducer, initialState)
 
@@ -26,29 +26,36 @@ export const LoginProvider = ({children}) => {
 const loginReducer = (login, action) => {
     switch (action.type) {
         case 'LOGIN':
-            //console.log(action.data)
-            if (action.data.password === 'abc'){
-                return {
-                    username: action.data.username,
-                    isAuth: true, 
-                    message: `Welcome ${action.data.username}`
-                }
-            }
+            // console.log(action.data)
+            //    if (action.data.password === 'abc'){
+            //     return {
+            //         username: action.data.username,
+            //         isAuth: true,
+            //         message: `Welcome ${action.data.username}`
+            //     }
+            //    }
             return {
-                ...login, 
-                message: "User not Authorized"
+                ...action.data,
+                isAuth: true
             }
 
-            //logout case
-            //should clear, empty string, username and password
-            // set is auth to false
-            // and deliver a log out message = "Logged out"
-            case 'LOGOUT':
+        // logout case
+        // should clear, empty string, username and password
+        // set isAuth to false
+        // and deliver a log out message = "Logged out!"
+        case 'LOGOUT':
+            return {
+                username: '',
+                password: '',
+                isAuth: false,
+                message: 'Logged Out!'
+            }
+            case "REGISTER":
                 return {
                     username: '',
                     password: '',
                     isAuth: false,
-                    message: 'Logged out'    
+                    ...action.payload
                 }
         default:
             return login
