@@ -48,7 +48,7 @@ const Login = () => {
                 {/* Logout Button */}
                 <button onClick={
                     () => {
-                    logout(dispatch)
+                    logout(dispatch, authDispatch)
                     setInput({username: '',password: ''})
                     }
                 }
