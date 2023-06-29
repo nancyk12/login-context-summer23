@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import {ThemeContext} from '../../context/ThemeContext'
 import {LoginContext, LoginDispatchContext} from '../../context/LoginContext'
-import { fetchLogin, registerUser } from '../../context/loginContextHelper'
+import { fetchLogin, registerUser, logout } from '../../context/loginContextHelper'
 
 import './Login.css'
 
@@ -43,7 +43,7 @@ const Login = () => {
                 {/* Logout Button */}
                 <button onClick={
                     () => {
-                    dispatch({type: 'LOGOUT'})
+                    logout(dispatch)
                     setInput({username: '',password: ''})
                     }
                 }
@@ -68,7 +68,7 @@ const Login = () => {
                     onChange={onChangeHandler}
                 /><br />
                 <button onClick={ () => registerUser(dispatch, input)}
-                >Register</button>
+                    >Register</button>
                 <button onClick={ 
                     () => fetchLogin(dispatch, input)
                 }>Login</button>
