@@ -72,3 +72,19 @@ export const logout = (dispatch, authDispatch) => {
         errorHandler(dispatch, error)
     }
 }
+
+export const deleteUser = async (dispatch, authDispatch) => {
+    try {
+        let response = await Axios.post('/users/delete-user')
+        localStorage.removeItem("jwtToken")
+        authDispatch({
+            type: 'AUTH_FAILURE'
+        })
+        dispatch({
+            type: 'DELETE'
+        })
+
+    } catch (error) {
+        errorHandler(dispatch, error)
+    }
+}

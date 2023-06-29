@@ -68,6 +68,10 @@ const loginReducer = (login, action) => {
                 ...login,
                 message: action.message
             }
+        case "DELETE":
+            return {
+                message: 'User deleted'
+            }
         default:
             return login
     }

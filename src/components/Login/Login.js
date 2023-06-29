@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import {ThemeContext} from '../../context/ThemeContext'
 import {LoginContext, LoginDispatchContext} from '../../context/LoginContext'
-import { fetchLogin, registerUser, logout } from '../../context/loginContextHelper'
+import { fetchLogin, registerUser, logout, deleteUser } from '../../context/loginContextHelper'
 import {AuthContext, AuthDispatchContext} from '../../context/AuthContext'
 
 import './Login.css'
@@ -66,6 +66,8 @@ const Login = () => {
             auth.isAuth ? 
             <>
                 <br></br>
+                <button onClick={ () => deleteUser(dispatch, authDispatch)}>Delete User</button>
+
                 {/* Logout Button */}
                 <button onClick={
                     () => {
