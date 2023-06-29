@@ -35,6 +35,7 @@ const loginReducer = (login, action) => {
             //     }
             //    }
             return {
+                ...login,
                 ...action.data
             }
 

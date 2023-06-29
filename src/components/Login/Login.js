@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {ThemeContext} from '../../context/ThemeContext'
 import {LoginContext, LoginDispatchContext} from '../../context/LoginContext'
 import { fetchLogin, registerUser, logout } from '../../context/loginContextHelper'
 import {AuthContext, AuthDispatchContext} from '../../context/AuthContext'
 
 import './Login.css'
+import Axios from '../../lib/Axios'
+import { checkAuthToken } from '../../lib/checkAuthToken'
 
 //Make the register button work
 //Need to send username and password the backend
@@ -21,6 +23,20 @@ const Login = () => {
   //consume the auth contexts
   const auth = useContext(AuthContext)
   const authDispatch = useContext(AuthDispatchContext)
+
+    useEffect(() => {
+      const tokenLogin = async () => {
+        checkAuthToken()
+        let response = await Axios.post('/users/authtoken')
+            dispatch({
+            type: 'LOGIN',
+            data: response.data
+        })
+      } 
+      tokenLogin()
+     
+    }, [])
+    
 
   const [input, setInput] = useState({
     username: '',
