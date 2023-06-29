@@ -19,16 +19,22 @@ const errorHandler = async(dispatch, error) => {
 
 export const fetchLogin = async (dispatch, userData) => {
     try {
-        //console.log('!@-------userData-------@!')
-        //console.log(userData)
+        // console.log('!@-------userData-------@!')
+        // console.log(userData)
         
         let response = await Axios.post('/users/login', userData)
-        //console.log('!@-------response-------@!')
-        //console.log(response.data)
-        
+        // console.log('!@-------response-------@!')
+        // console.log(response.data)
+
+        //saves the jwt token to local storage (local to the browser)
+        localStorage.setItem('jwtToken', response.data.token)
+
         dispatch({
             type: 'LOGIN',
-            data: response.data
+            data: {
+                username: response.data.username,
+                message: response.data.message
+            }
     })
     } catch (error) {
         errorHandler(dispatch, error)
@@ -39,14 +45,14 @@ export const registerUser = async (dispatch, userData) => {
     try {
         let response = await Axios.post('/users/register', userData)
         // console.log(response.data);
-
-    dispatch({
-        type: 'REGISTER',
-        payload: response.data
-    })
-
+    
+        dispatch({
+            type: 'REGISTER',
+            payload: response.data
+        })
+        
     } catch (error) {
-        errorHandler(dispatch, error)
+         errorHandler(dispatch, error)
     }
 }
 
