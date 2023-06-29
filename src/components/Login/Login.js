@@ -8,10 +8,13 @@ import './Login.css'
 import Axios from '../../lib/Axios'
 import { checkAuthToken } from '../../lib/checkAuthToken'
 
-//Make the register button work
+// Make a user delete button.  
+// Once logged in the user should be able to delete their account
 //Need to send username and password the backend
 // No logic in the backend right now, just return success message with username.
-
+//
+// On the backend make the delete-user route
+// You should use the authorization middleware and delete the user from the db.
 const Login = () => {
   //consume theme context  
   const {theme} = useContext(ThemeContext)
@@ -26,12 +29,14 @@ const Login = () => {
 
     useEffect(() => {
       const tokenLogin = async () => {
-        checkAuthToken()
-        let response = await Axios.post('/users/authtoken')
+        if (checkAuthToken()) {
+            let response = await Axios.post('/users/authtoken')
             dispatch({
-            type: 'LOGIN',
-            data: response.data
-        })
+                type: 'LOGIN',
+                data: response.data
+            })  
+        } 
+        
       } 
       tokenLogin()
      
