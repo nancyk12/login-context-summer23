@@ -1,4 +1,5 @@
 import {createContext, useReducer, useEffect} from 'react'
+import { checkAuthToken } from '../lib/checkAuthToken'
 
 export const AuthContext = createContext(null)
 export const AuthDispatchContext = createContext(null)
@@ -9,6 +10,17 @@ const initialState = {
 
 export const AuthProvider = ({children}) => {
     const [auth, dispatch] = useReducer(authReducer, initialState)
+
+    useEffect(() => {
+        //check if there is a token
+        let authy = checkAuthToken()
+        // returns true or false
+        //dispatch to set state
+        authy ? 
+            dispatch({ type: "AUTH_SUCCESS"})
+        :
+            dispatch({ type: "AUTH_FAILURE"})
+    }, [])
 
     return (
         <AuthContext.Provider value={auth}>

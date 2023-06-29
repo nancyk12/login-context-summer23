@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import {ThemeContext} from '../../context/ThemeContext'
 import {LoginContext, LoginDispatchContext} from '../../context/LoginContext'
 import { fetchLogin, registerUser, logout } from '../../context/loginContextHelper'
+import {AuthContext, AuthDispatchContext} from '../../context/AuthContext'
 
 import './Login.css'
 
@@ -16,6 +17,10 @@ const Login = () => {
   //consume the login contexts
   const login = useContext(LoginContext)
   const dispatch = useContext(LoginDispatchContext)
+
+  //consume the auth contexts
+  const auth = useContext(AuthContext)
+  const authDispatch = useContext(AuthDispatchContext)
 
   const [input, setInput] = useState({
     username: '',
@@ -37,7 +42,7 @@ const Login = () => {
         isAuth = true -> 'Welcome username' */}
         
         {
-            login.isAuth ? 
+            auth.isAuth ? 
             <>
                 <br></br>
                 {/* Logout Button */}
@@ -70,7 +75,7 @@ const Login = () => {
                 <button onClick={ () => registerUser(dispatch, input)}
                     >Register</button>
                 <button onClick={ 
-                    () => fetchLogin(dispatch, input)
+                    () => fetchLogin(dispatch, input, authDispatch)
                 }>Login</button>
             </>           
         }

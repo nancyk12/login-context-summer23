@@ -3,21 +3,23 @@ import './Home.css'
 
 import {ThemeContext} from '../../context/ThemeContext'
 import {LoginContext} from '../../context/LoginContext'
+import {AuthContext} from '../../context/AuthContext'
 
 import {checkAuthToken} from '../../lib/checkAuthToken'
 
 const Home = () => {
 
-    useEffect(() => {
-      checkAuthToken()
+    // useEffect(() => {
+    //   checkAuthToken()
     
-    }, [])
+    // }, [])
     
-    
+
 
     const { theme, setTheme, changeTheme } = useContext(ThemeContext)
 
     const login = useContext(LoginContext) 
+    const auth = useContext(AuthContext)
 
     // const changeTheme = () => {
     //   theme === 'light' ? setTheme('dark') : setTheme('light')
@@ -25,7 +27,7 @@ const Home = () => {
   return (
     <div id='home' className={theme}>
       {
-        login.isAuth ?
+        auth.isAuth ?
         <>
             Welcome to Home: {login.username}
         </>

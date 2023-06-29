@@ -17,7 +17,7 @@ const errorHandler = async(dispatch, error) => {
 }
 
 
-export const fetchLogin = async (dispatch, userData) => {
+export const fetchLogin = async (dispatch, userData, authDispatch) => {
     try {
         // console.log('!@-------userData-------@!')
         // console.log(userData)
@@ -28,6 +28,10 @@ export const fetchLogin = async (dispatch, userData) => {
 
         //saves the jwt token to local storage (local to the browser)
         localStorage.setItem('jwtToken', response.data.token)
+
+        authDispatch({
+            type: 'AUTH_SUCCESS'
+        })
 
         dispatch({
             type: 'LOGIN',
